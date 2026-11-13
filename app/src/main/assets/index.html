@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#173b32"><title>الباشا للمنظفات | النظام المحاسبي</title>
+<style>
+:root{--g:#173b32;--gold:#c99b42;--bg:#f3f5f2;--card:#fff;--ink:#17231f;--muted:#68756f;--line:#e1e7e2;--red:#b33b35;--blue:#315f91}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;font-size:14px}header{background:linear-gradient(120deg,#102c26,#245747);color:#fff;padding:18px 16px 15px}header h1{margin:0 0 5px;font-size:22px}header p{margin:0;color:#d5e2dc;font-size:12px}.wrap{max-width:1100px;margin:auto;padding:12px}.tabs{display:flex;gap:7px;overflow:auto;padding:9px 0;position:sticky;top:0;background:var(--bg);z-index:5}.tabs button{white-space:nowrap;border:1px solid var(--line);background:#fff;color:var(--g);border-radius:9px;padding:10px 13px;font-weight:bold}.tabs button.active{background:var(--g);color:#fff;border-color:var(--g)}section.page{display:none}section.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px;margin-bottom:11px;box-shadow:0 2px 8px #152b1b08}.metric small{color:var(--muted)}.metric strong{display:block;font-size:22px;margin-top:8px;color:var(--g)}h2{font-size:18px;margin:5px 0 13px;color:var(--g)}h3{font-size:15px;margin:0 0 12px;color:var(--g)}label{display:block;font-weight:bold;font-size:12px;color:#46554e;margin:9px 0 5px}input,select,textarea{width:100%;padding:11px;border:1px solid #ccd7d0;border-radius:8px;background:#fff;font:inherit;color:var(--ink)}textarea{min-height:65px}button{cursor:pointer;font:inherit}.btn{background:var(--g);color:#fff;border:0;border-radius:8px;padding:11px 15px;font-weight:bold;margin-top:10px}.btn.gold{background:var(--gold);color:#1c241f}.btn.light{background:#e8efeb;color:var(--g)}.btn.danger{background:#a93c36}.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:560px}th,td{text-align:right;padding:10px 8px;border-bottom:1px solid var(--line);font-size:12px}th{background:#f1f5f2;color:var(--g)}.muted{color:var(--muted);font-size:12px}.pill{display:inline-block;border-radius:20px;padding:4px 8px;background:#eaf1ed;color:var(--g);font-size:11px}.positive{color:#16734d}.negative{color:var(--red)}.notice{padding:11px;background:#fff8e8;border:1px solid #f0dfb9;border-radius:9px;color:#72541c;margin-bottom:12px}.actions{display:flex;gap:7px;flex-wrap:wrap}.hidden{display:none!important}.empty{text-align:center;padding:20px;color:var(--muted)}footer{text-align:center;color:var(--muted);padding:22px;font-size:11px}
+@media(min-width:750px){.wrap{padding:18px}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}}
+</style></head>
+<body>
+<header><h1>الباشا للمنظفات</h1><p>النظام المحاسبي والإنتاجي — الجنيه السوداني (SDG)</p></header>
+<div class="wrap">
+<nav class="tabs" id="tabs">
+<button class="active" data-page="home">الرئيسية</button><button data-page="moves">الحركات المالية</button><button data-page="production">الإنتاج والتشغيلات</button><button data-page="stock">المخزون</button><button data-page="parties">العملاء والموردون</button><button data-page="reports">التقارير</button><button data-page="backup">النسخ الاحتياطي</button>
+</nav>
+<section id="home" class="page active">
+<h2>ملخص الحسابات</h2><div class="grid" id="metrics"></div>
+<div class="notice">افصل حركة المصنع عن حركة المحل عند التسجيل. التقرير الموحد يجمع النشاطين. احتفظ بنسخة احتياطية دورية من بياناتك.</div>
+<div class="card"><h3>آخر الحركات</h3><div id="recent"></div></div>
+<div class="grid"><div class="card"><h3>ملخص المصنع</h3><div id="factorySummary"></div></div><div class="card"><h3>ملخص المحل</h3><div id="shopSummary"></div></div></div>
+</section>
+<section id="moves" class="page">
+<h2>تسجيل حركة مالية</h2><div class="card"><form id="moveForm">
+<div class="row"><div><label>الجهة / الحساب</label><select id="mAccount"><option value="factory">المصنع</option><option value="shop">المحل</option></select></div><div><label>نوع الحركة</label><select id="mType"><option value="sale">مبيعات</option><option value="expense">مصروف</option><option value="purchase">شراء خامات / عبوات</option><option value="collection">تحصيل من عميل</option><option value="supplierPay">سداد مورد</option><option value="capital">رأس مال / إيداع</option></select></div></div>
+<div class="row"><div><label>المبلغ بالجنيه</label><input id="mAmount" type="number" min="0.01" step="0.01" required></div><div><label>التاريخ</label><input id="mDate" type="date" required></div></div>
+<div class="row"><div><label>العميل (اختياري)</label><select id="mCustomer"><option value="">— بدون —</option></select></div><div><label>المورد (اختياري)</label><select id="mSupplier"><option value="">— بدون —</option></select></div></div>
+<label>البيان / التفاصيل</label><input id="mNote" placeholder="مثال: بيع 5 لتر صابون سائل">
+<button class="btn" type="submit">حفظ الحركة</button></form></div>
+<div class="card"><h3>سجل الحركات المالية</h3><div class="tablewrap" id="movesTable"></div></div>
+</section>
+<section id="production" class="page">
+<h2>حساب تكلفة دفعة إنتاج</h2><div class="card"><form id="batchForm">
+<div class="row"><div><label>اسم المنتج</label><input id="pName" value="صابون سائل" required></div><div><label>حجم الدفعة باللتر</label><input id="pLiters" type="number" min="1" value="220" required></div></div>
+<div class="row"><div><label>تكلفة المواد الخام</label><input id="pRaw" type="number" min="0" value="0"></div><div><label>تكلفة العبوات والتغليف</label><input id="pPack" type="number" min="0" value="0"></div></div>
+<div class="row"><div><label>الأجور</label><input id="pWages" type="number" min="0" value="0"></div><div><label>الطاقة والمياه</label><input id="pUtilities" type="number" min="0" value="0"></div></div>
+<label>تكاليف أخرى</label><input id="pOther" type="number" min="0" value="0">
+<label>ملاحظات التركيبة / رقم التشغيلة</label><input id="pNote" placeholder="مثال: تشغيلة رقم 001">
+<div class="notice" id="batchCalc">أدخل التكاليف لحساب تكلفة الدفعة واللتر.</div><button class="btn" type="submit">احسب واحفظ التشغيلة</button></form></div>
+<div class="card"><h3>سجل التشغيلات</h3><div class="tablewrap" id="batchTable"></div></div>
+</section>
+<section id="stock" class="page">
+<h2>المخزون</h2><div class="card"><h3>إضافة صنف للمخزون</h3><form id="stockForm"><div class="row"><div><label>اسم الصنف</label><input id="sName" required placeholder="مثال: عبوة 5 لتر"></div><div><label>التصنيف</label><select id="sCategory"><option>منتج تام</option><option>مادة خام</option><option>عبوات وتغليف</option></select></div><div><label>الوحدة</label><input id="sUnit" value="قطعة"></div></div><div class="row"><div><label>الرصيد الافتتاحي</label><input id="sQty" type="number" min="0" value="0"></div><div><label>حد التنبيه</label><input id="sMin" type="number" min="0" value="0"></div></div><button class="btn">إضافة الصنف</button></form></div>
+<div class="card"><h3>تسجيل إضافة أو صرف</h3><form id="stockMoveForm"><div class="row"><div><label>الصنف</label><select id="smItem"></select></div><div><label>نوع الحركة</label><select id="smType"><option value="in">إضافة للمخزون</option><option value="out">صرف من المخزون</option></select></div><div><label>الكمية</label><input id="smQty" type="number" min="0.01" step="0.01" required></div></div><label>البيان</label><input id="smNote"><button class="btn">حفظ حركة المخزون</button></form></div>
+<div class="card"><h3>الأرصدة الحالية</h3><div class="tablewrap" id="stockTable"></div></div>
+</section>
+<section id="parties" class="page">
+<h2>العملاء والموردون والديون</h2><div class="two">
+<div class="card"><h3>إضافة عميل</h3><form id="customerForm"><label>اسم العميل</label><input id="cName" required><label>رقم الهاتف</label><input id="cPhone"><label>الرصيد الافتتاحي المستحق (عليه)</label><input id="cOpening" type="number" min="0" value="0"><button class="btn">حفظ العميل</button></form></div>
+<div class="card"><h3>إضافة مورد</h3><form id="supplierForm"><label>اسم المورد</label><input id="vName" required><label>رقم الهاتف</label><input id="vPhone"><label>الرصيد الافتتاحي المستحق له</label><input id="vOpening" type="number" min="0" value="0"><button class="btn">حفظ المورد</button></form></div></div>
+<div class="card"><h3>أرصدة العملاء</h3><div class="tablewrap" id="customersTable"></div></div><div class="card"><h3>أرصدة الموردين</h3><div class="tablewrap" id="suppliersTable"></div></div>
+</section>
+<section id="reports" class="page">
+<h2>التقارير المالية</h2><div class="card"><div class="row"><div><label>الفترة</label><select id="rPeriod"><option value="day">اليوم</option><option value="month" selected>الشهر الحالي</option><option value="all">كل الفترة</option></select></div><div><label>الحساب</label><select id="rAccount"><option value="all">المصنع والمحل</option><option value="factory">المصنع فقط</option><option value="shop">المحل فقط</option></select></div></div><button class="btn" id="runReport">عرض التقرير</button><div id="reportResult"></div></div>
+<div class="card"><h3>تكلفة الإنتاج المسجلة</h3><div id="productionReport"></div></div>
+<div class="notice">الأرباح التشغيلية التقديرية هنا = المبيعات المسجلة − المصروفات − المشتريات. لا تشمل هذه النسخة قيود الإهلاك أو الضرائب أو التسويات المحاسبية المتقدمة.</div>
+</section>
+<section id="backup" class="page">
+<h2>حفظ واستعادة البيانات</h2><div class="card"><p>بياناتك تحفظ محلياً على هذا الهاتف والمتصفح. النسخة الاحتياطية ملف JSON يشمل الحركات والمخزون والعملاء والموردين والتشغيلات.</p><div class="actions"><button class="btn" id="exportBtn">تنزيل نسخة احتياطية</button><label class="btn light" for="importFile">استعادة نسخة JSON</label><input id="importFile" type="file" accept=".json,application/json" class="hidden"></div></div>
+<div class="card"><h3>إدارة البيانات</h3><p class="muted">مسح البيانات لا يمكن التراجع عنه. نزّل نسخة احتياطية أولاً.</p><button class="btn danger" id="clearBtn">مسح جميع البيانات من هذا الجهاز</button></div>
+</section>
+<footer>الباشا للمنظفات — نظام محلي أولي. احتفظ بنسخة احتياطية ولا تعتمد التقارير رسمياً قبل مراجعتها محاسبياً.</footer>
+</div>
+<script>
+const KEY='albasha_accounting_v3';
+const today=()=>new Date().toISOString().slice(0,10);
+const blank=()=>({moves:[],batches:[],items:[],stockMoves:[],customers:[],suppliers:[]});
+let db=load();
+function load(){try{return {...blank(),...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){return blank()}}
+function save(){localStorage.setItem(KEY,JSON.stringify(db));render()}
+const $=id=>document.getElementById(id);
+const money=n=>(Number(n)||0).toLocaleString('en-US',{maximumFractionDigits:2})+' ج.س';
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const typeName={sale:'مبيعات',expense:'مصروف',purchase:'مشتريات',collection:'تحصيل عميل',supplierPay:'سداد مورد',capital:'رأس مال'};
+function balanceCustomer(c){let b=Number(c.opening)||0;db.moves.forEach(m=>{if(m.customer===c.id){if(m.type==='sale')b+=+m.amount;if(m.type==='collection')b-=+m.amount}});return b}
+function balanceSupplier(v){let b=Number(v.opening)||0;db.moves.forEach(m=>{if(m.supplier===v.id){if(m.type==='purchase')b+=+m.amount;if(m.type==='supplierPay')b-=+m.amount}});return b}
+function stockQty(item){return (+item.opening||0)+db.stockMoves.filter(m=>m.item===item.id).reduce((a,m)=>a+(m.type==='in'?+m.qty:-m.qty),0)}
+function fmtTable(headers,rows){if(!rows.length)return '<div class="empty">لا توجد بيانات مسجلة</div>';return '<div class="tablewrap"><table><thead><tr>'+headers.map(h=>'<th>'+h+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>'}
+function moveRows(arr){return arr.slice().reverse().map(m=>`<tr><td>${esc(m.date)}</td><td>${m.account==='factory'?'المصنع':'المحل'}</td><td>${typeName[m.type]||m.type}</td><td>${money(m.amount)}</td><td>${esc(m.note||'—')}</td></tr>`)}
+function render(){
+ const sales=db.moves.filter(m=>m.type==='sale').reduce((a,m)=>a+ +m.amount,0), exp=db.moves.filter(m=>m.type==='expense').reduce((a,m)=>a+ +m.amount,0), buys=db.moves.filter(m=>m.type==='purchase').reduce((a,m)=>a+ +m.amount,0), collect=db.moves.filter(m=>m.type==='collection').reduce((a,m)=>a+ +m.amount,0);
+ const net=sales+collect-exp-buys-db.moves.filter(m=>m.type==='supplierPay').reduce((a,m)=>a+ +m.amount,0);
+ $('metrics').innerHTML=[['إجمالي المبيعات',sales],['إجمالي المصروفات',exp],['المشتريات',buys],['صافي الحركة النقدية',net]].map(x=>`<div class="card metric"><small>${x[0]}</small><strong>${money(x[1])}</strong></div>`).join('');
+ $('recent').innerHTML=fmtTable(['التاريخ','الحساب','النوع','المبلغ','البيان'],moveRows(db.moves.slice(-8)));
+ for(const [id,account] of [['factory','factory'],['shop','shop']]){let a=db.moves.filter(m=>m.account===account);let s=a.filter(m=>m.type==='sale').reduce((x,m)=>x+ +m.amount,0),e=a.filter(m=>m.type==='expense').reduce((x,m)=>x+ +m.amount,0),p=a.filter(m=>m.type==='purchase').reduce((x,m)=>x+ +m.amount,0);$(id==='factory'?'factorySummary':'shopSummary').innerHTML=`<p>المبيعات: <b>${money(s)}</b></p><p>المصروفات: <b>${money(e)}</b></p><p>المشتريات: <b>${money(p)}</b></p><p>الصافي التقديري: <b>${money(s-e-p)}</b></p>`}
+ $('movesTable').innerHTML=fmtTable(['التاريخ','الحساب','النوع','المبلغ','البيان'],moveRows(db.moves));
+ $('batchTable').innerHTML=fmtTable(['التاريخ','المنتج','اللترات','تكلفة الدفعة','تكلفة اللتر'],db.batches.slice().reverse().map(b=>`<tr><td>${b.date}</td><td>${esc(b.name)}</td><td>${b.liters}</td><td>${money(b.total)}</td><td>${money(b.total/b.liters)}</td></tr>`));
+ $('stockTable').innerHTML=fmtTable(['الصنف','التصنيف','الرصيد','الوحدة','تنبيه'],db.items.map(i=>`<tr><td>${esc(i.name)}</td><td>${esc(i.category)}</td><td>${stockQty(i)}</td><td>${esc(i.unit)}</td><td>${stockQty(i)<=+i.min?'<span class="negative">وصل حد التنبيه</span>':'—'}</td></tr>`));
+ $('customersTable').innerHTML=fmtTable(['العميل','الهاتف','الرصيد عليه'],db.customers.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.phone)}</td><td>${money(balanceCustomer(c))}</td></tr>`));
+ $('suppliersTable').innerHTML=fmtTable(['المورد','الهاتف','الرصيد المستحق له'],db.suppliers.map(v=>`<tr><td>${esc(v.name)}</td><td>${esc(v.phone)}</td><td>${money(balanceSupplier(v))}</td></tr>`));
+ $('smItem').innerHTML=db.items.map(i=>`<option value="${i.id}">${esc(i.name)}</option>`).join('');
+ $('mCustomer').innerHTML='<option value="">— بدون —</option>'+db.customers.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
+ $('mSupplier').innerHTML='<option value="">— بدون —</option>'+db.suppliers.map(v=>`<option value="${v.id}">${esc(v.name)}</option>`).join('');
+ $('productionReport').innerHTML=`عدد التشغيلات: <b>${db.batches.length}</b> — إجمالي تكلفة الإنتاج: <b>${money(db.batches.reduce((a,b)=>a+b.total,0))}</b>`;
+}
+function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+$('tabs').addEventListener('click',e=>{let b=e.target.closest('button[data-page]');if(!b)return;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===b.dataset.page))});
+$('mDate').value=today();
+$('moveForm').addEventListener('submit',e=>{e.preventDefault();let amount=+$('mAmount').value;if(amount<=0)return alert('أدخل مبلغاً صحيحاً');db.moves.push({id:id(),account:$('mAccount').value,type:$('mType').value,amount,date:$('mDate').value,customer:$('mCustomer').value,supplier:$('mSupplier').value,note:$('mNote').value});e.target.reset();$('mDate').value=today();save();alert('تم حفظ الحركة')});
+function calcBatch(){let liters=+$('pLiters').value||1,total=['pRaw','pPack','pWages','pUtilities','pOther'].reduce((a,k)=>a+(+$ (k).value||0),0);$('batchCalc').innerHTML=`إجمالي تكلفة الدفعة: <b>${money(total)}</b> — تكلفة اللتر: <b>${money(total/liters)}</b>`}
+['pLiters','pRaw','pPack','pWages','pUtilities','pOther'].forEach(k=>$(k).addEventListener('input',calcBatch));
+$('batchForm').addEventListener('submit',e=>{e.preventDefault();let liters=+$('pLiters').value,total=['pRaw','pPack','pWages','pUtilities','pOther'].reduce((a,k)=>a+(+$ (k).value||0),0);if(liters<=0)return;db.batches.push({id:id(),name:$('pName').value,liters,total,date:today(),note:$('pNote').value,raw:+$('pRaw').value,pack:+$('pPack').value,wages:+$('pWages').value,utilities:+$('pUtilities').value,other:+$('pOther').value});let item=db.items.find(i=>i.name===$('pName').value&&i.category==='منتج تام');if(!item){item={id:id(),name:$('pName').value,category:'منتج تام',unit:'لتر',opening:0,min:0};db.items.push(item)}db.stockMoves.push({id:id(),item:item.id,type:'in',qty:liters,note:'إنتاج تشغيلة'});save();alert('تم حفظ التشغيلة وإضافة الكمية للمخزون')});
+$('stockForm').addEventListener('submit',e=>{e.preventDefault();db.items.push({id:id(),name:$('sName').value,category:$('sCategory').value,unit:$('sUnit').value,opening:+$('sQty').value,min:+$('sMin').value});e.target.reset();$('sUnit').value='قطعة';save()});
+$('stockMoveForm').addEventListener('submit',e=>{e.preventDefault();let item=db.items.find(i=>i.id===$('smItem').value),qty=+$('smQty').value;if(!item||qty<=0)return;if($('smType').value==='out'&&stockQty(item)<qty)return alert('الرصيد غير كافٍ');db.stockMoves.push({id:id(),item:item.id,type:$('smType').value,qty,note:$('smNote').value,date:today()});e.target.reset();save()});
+$('customerForm').addEventListener('submit',e=>{e.preventDefault();db.customers.push({id:id(),name:$('cName').value,phone:$('cPhone').value,opening:+$('cOpening').value});e.target.reset();save()});
+$('supplierForm').addEventListener('submit',e=>{e.preventDefault();db.suppliers.push({id:id(),name:$('vName').value,phone:$('vPhone').value,opening:+$('vOpening').value});e.target.reset();save()});
+function report(){let period=$('rPeriod').value,acc=$('rAccount').value,now=today(),month=now.slice(0,7),arr=db.moves.filter(m=>(acc==='all'||m.account===acc)&&(period==='all'||(period==='day'?m.date===now:m.date.slice(0,7)===month)));let sum=t=>arr.filter(m=>m.type===t).reduce((a,m)=>a+ +m.amount,0),sales=sum('sale'),expenses=sum('expense'),purchases=sum('purchase'),profit=sales-expenses-purchases;$('reportResult').innerHTML=`<div class="grid"><div class="card metric"><small>المبيعات</small><strong>${money(sales)}</strong></div><div class="card metric"><small>المصروفات</small><strong>${money(expenses)}</strong></div><div class="card metric"><small>المشتريات</small><strong>${money(purchases)}</strong></div><div class="card metric"><small>صافي تقديري</small><strong class="${profit>=0?'positive':'negative'}">${money(profit)}</strong></div></div>${fmtTable(['التاريخ','الحساب','النوع','المبلغ','البيان'],moveRows(arr))}`}
+$('runReport').addEventListener('click',report);
+$('exportBtn').addEventListener('click',()=>{let blob=new Blob([JSON.stringify({app:'AlBashaAccounting',version:3,exportedAt:new Date().toISOString(),data:db},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='AlBasha_Backup_'+today()+'.json';a.click();URL.revokeObjectURL(a.href)});
+$('importFile').addEventListener('change',async e=>{let f=e.target.files[0];if(!f)return;try{let obj=JSON.parse(await f.text()),d=obj.data||obj;if(!Array.isArray(d.moves)||!Array.isArray(d.items))throw Error();if(!confirm('سيتم استبدال البيانات الحالية بالنسخة المختارة. هل تتابع؟'))return;db={...blank(),...d};save();alert('تمت استعادة البيانات')}catch(err){alert('ملف النسخة الاحتياطية غير صالح')}e.target.value=''});
+$('clearBtn').addEventListener('click',()=>{if(confirm('تحذير: سيتم حذف جميع البيانات نهائياً من هذا الجهاز. هل أنت متأكد؟')&&confirm('تأكيد أخير: هل تريد المسح؟')){db=blank();save();alert('تم مسح البيانات')}});
+render();calcBatch();report();
+</script></body></html>
